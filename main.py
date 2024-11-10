@@ -24,7 +24,7 @@ def create_csv_file():
 # Функція для конвертації CSV у JSON
 def csv_to_json():
     try:
-        data = []
+        data = {}
 
         # Читання CSV файлу
         with open('countries.csv', mode='r') as file:
@@ -32,7 +32,8 @@ def csv_to_json():
             for row in reader:
                 row['area'] = float(row['area'])         # Площа в тис. кв. км (float)
                 row['population'] = int(row['population'])  # Населення в млн (int)
-                data.append(row)
+                # Використовуємо назву країни як ключ для словника
+                data[row['country']] = {"area": row['area'], "population": row['population']}
 
         # Запис у JSON файл
         with open('countries.json', mode='w') as file:
